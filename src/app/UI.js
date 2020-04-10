@@ -10,11 +10,20 @@ export class UI{
     }
 
     render(weather){
-        this.location.textContent = weather.name + ' / ' + weather.sys.country
-        this.description.textContent = weather.weather[0].description
-        this.temperature.textContent = parseFloat(weather.main.temp).toFixed(1) + ' ºC'
-        this.icon.src = `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`
-        this.humidity.textContent = 'Humidity: ' + weather.main.humidity + ' %'
-        this.wind.textContent = 'Wind: ' + weather.wind.speed + ' m/s'
+        if(weather instanceof Error){
+            this.location.textContent = ''
+            this.description.textContent = weather.message
+            this.temperature.textContent = ''
+            this.icon.src = ''
+            this.humidity.textContent = ''
+            this.wind.textContent = ''
+        } else {
+            this.location.textContent = weather.name + ' / ' + weather.sys.country
+            this.description.textContent = weather.weather[0].description
+            this.temperature.textContent = parseFloat(weather.main.temp).toFixed(1) + ' ºC'
+            this.icon.src = `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`
+            this.humidity.textContent = 'Humidity: ' + weather.main.humidity + ' %'
+            this.wind.textContent = 'Wind: ' + weather.wind.speed + ' m/s'
+        }
     }
 }

@@ -8,10 +8,13 @@ const { city, countryCode } = store.getLocation()
 const ui = new UI()
 const weather = new Weather(city, countryCode)
 
-async function fetchWeather(){
-   const data = await weather.getWeather()
-   console.log(data)
-   ui.render(data)
+async function fetchWeather() {
+    try {
+        const data = await weather.getWeather()
+        ui.render(data)
+    } catch (error) {
+        ui.render(error)
+    }
 }
 
 document.getElementById('weather-btn').addEventListener('click', (event) => {
@@ -23,6 +26,7 @@ document.getElementById('weather-btn').addEventListener('click', (event) => {
 
     weather.changeLocation(city, countryCode)
     fetchWeather()
+
 })
 
 document.addEventListener('DOMContentLoaded', fetchWeather) //se ejecuta cuando el documento HTML ha sido cargado
