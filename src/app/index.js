@@ -11,9 +11,11 @@ const weather = new Weather(city, countryCode)
 async function fetchWeather() {
     try {
         const data = await weather.getWeather()
-        ui.render(data)
+        const forecast = await weather.getForecast()
+        ui.renderWeather(data)
+        ui.renderForecast(forecast)
     } catch (error) {
-        ui.render(error)
+        ui.renderWeather(error)
     }
 }
 

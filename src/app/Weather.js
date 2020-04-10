@@ -19,6 +19,19 @@ export class Weather {
         }
     }
 
+    async getForecast() {
+        const URI = `https://api.openweathermap.org/data/2.5/forecast?q=${this.city},${this.countryCode}&appid=${this.apikey}&units=metric`
+        const response = await fetch(URI)
+        const { status } = response
+
+        if (status === 200) {
+            const data = await response.json()
+            return data
+        } else if (status === 404) {
+            throw new Error(`${this.city} not found`)
+        }
+    }
+
     changeLocation(city, countryCode) {
         this.city = city
         this.countryCode = countryCode
