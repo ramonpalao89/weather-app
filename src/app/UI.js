@@ -39,10 +39,24 @@ export class UI{
     renderForecast(forecast){
         const { list } = forecast
 
+        list.forEach(item => {
+            if(item.dt_txt){
+                let fullDate = item.dt_txt.split('-')
+                fullDate.splice(0,1)
+                return item.dt_txt = fullDate.join('/')
+            }
+        })
+
         if(forecast instanceof Error){
-            this.forecastDate = ''
-            this.forecastTemperature = ''
+            this.forecastDate.textContent = ''
+            this.forecastTemperature.textContent = ''
             this.forecastIcon.src = ''
+            this.forecastDateTwo.textContent = ''
+            this.forecastTemperatureTwo.textContent = ''
+            this.forecastIconTwo.src = ''
+            this.forecastDateThree.textContent = ''
+            this.forecastTemperatureThree.textContent = ''
+            this.forecastIconThree.src = ''
         } else {
 
             this.forecastDate.textContent = list[8].dt_txt

@@ -16,6 +16,7 @@ async function fetchWeather() {
         ui.renderForecast(forecast)
     } catch (error) {
         ui.renderWeather(error)
+        ui.renderForecast(error)
     }
 }
 
@@ -27,6 +28,10 @@ document.getElementById('weather-btn').addEventListener('click', (event) => {
     store.setLocation(city, countryCode)
 
     weather.changeLocation(city, countryCode)
+    document.getElementById('city').value = ''
+    document.getElementById('countryCode').value = ''
+    document.getElementById('city').focus()
+    
     fetchWeather()
 
 })
